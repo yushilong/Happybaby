@@ -2,6 +2,7 @@ package happybaby.pics.view.fragment;
 
 import android.view.View;
 
+import happybaby.pics.R;
 import happybaby.pics.base.BaseFragment;
 
 /**
