@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+        <!--<item name="homeAsUpIndicator">@drawable/navigation_back_button</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="actionBarSize">49dp</item>
+        <!-- toolbar（actionbar）颜色 -->
+        <!--<item name="colorPrimary">@color/color_f7f7f7</item>-->
+        <!--<item name="colorPrimaryDark">@color/color_f7f7f7</item>-->
+        <!-- android:textColorPrimary is the  color of the title text
+                in the Toolbar, in the Theme.AppCompat theme:  -->
+        <!--<item name="android:textColorPrimary">@color/color_333333</item>-->
+
+        <!-- android:textColorSecondary is the color of the menu
+             overflow icon (three vertical dots) -->
+        <!--<item name="android:textColorSecondary">@color/color_333333</item>-->
+        <!--<item name="actionOverflowButtonStyle">@style/overflowButton</item>-->
+        <!--<item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>-->
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:ignore="NewApi">false</item>
+    </style>
+    <style name="activityAnimation">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_noanim</item>
+        <!--<item name="android:activityCloseEnterAnimation">@anim/in_from_left</item>-->
+        <item name="android:activityCloseExitAnimation">@anim/out_to_right</item>
+    </style>
+</resources>

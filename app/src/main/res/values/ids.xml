@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="toolbar" type="id" />
+    <item name="toolbarTitle" type="id" />
+    <item name="toolbarClose" type="id" />
+    <item name="dialogTitle" type="id" />
+    <item name="dialogLine" type="id" />
+    <item name="dialogContent" type="id" />
+    <item name="dialogLeftButton" type="id" />
+    <item name="dialogRightButton" type="id" />
+    <item name="popupWindowCancelButton" type="id" />
+    <item name="popupWindowClickbleArea" type="id" />
+    <item name="popupWindowMask" type="id" />
+    <item name="anchorListToTop" type="id" />
+    <item name="emptyicon" type="id" />
+    <item name="emptytext" type="id" />
+    <item name="emptyView" type="id" />
+    <item name="emptygo" type="id" />
+    <item name="menu_cart" type="id" />
+</resources>
