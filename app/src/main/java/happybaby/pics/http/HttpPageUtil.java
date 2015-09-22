@@ -36,7 +36,7 @@ public class HttpPageUtil {
             sortedMap = new TreeMap<>();
         sortedMap.put(pageKey, page + "");
         sortedMap.put(pageSizeKey, pagesize + "");
-        HttpUtil.async(HttpUtil.rebuildUrl(url, sortedMap), requestBody, tClass, httpCallback);
+        HttpUtil.async(url, requestBody, tClass, httpCallback);
     }
 
     public void first() {

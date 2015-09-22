@@ -8,5 +8,6 @@ public class Constant {
     //api
     public static final String USERS = "users";
     public static final String CHECK_UPDATE = "checkUpdate";
+    public static final String BAIDU_IMAGE = "http://image.baidu.com/channel/listjson?pn=%s&rn=30&tag1=%s&tag2=%s";
     //
 }

@@ -1,19 +1,20 @@
 package happybaby.pics.view.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.viewpagerindicator.IconPagerAdapter;
-import com.viewpagerindicator.TabPageIndicator;
 
 import happybaby.pics.R;
 import happybaby.pics.base.BaseActivity;
+import happybaby.pics.view.HBTabPageIndicator;
 import happybaby.pics.view.fragment.PicsFragment;
 
 public class MainActivity extends BaseActivity {
-    private static final String[] CONTENT = new String[]{"Calendar", "Camera", "Alarms", "Location"};
+    private static final String[] CONTENT = new String[]{"美图", "分类", "我的", "设置"};
     private static final int[] ICONS = new int[]{
             R.mipmap.ic_launcher,
             R.mipmap.ic_launcher,
@@ -33,7 +34,7 @@ public class MainActivity extends BaseActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
 
-        TabPageIndicator indicator = (TabPageIndicator) findViewById(R.id.indicator);
+        HBTabPageIndicator indicator = (HBTabPageIndicator) findViewById(R.id.indicator);
         indicator.setViewPager(pager);
     }
 
@@ -49,7 +50,9 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new PicsFragment();
+            PicsFragment fragment = new PicsFragment();
+            fragment.setArguments(new Bundle());
+            return fragment;
         }
 
         @Override

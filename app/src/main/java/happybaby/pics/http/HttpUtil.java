@@ -102,9 +102,9 @@ public class HttpUtil {
             final String str = response.body().string();
             Log.i(TAG, "response--->" + str);
             JSONObject result = new JSONObject(str);
-            final int status = result.optInt("status");//status：0成功 1参数错误 2未登录 3错误
+            final int status = result.optInt("status");//status：10000成功
             final String msg = result.optString("message");
-            if (status == 10000) {
+            if (status == 10000 || status == 0) {
                 Object object = new JSONTokener(result.opt("data").toString()).nextValue();
                 if (tClass == null) {//当tClass为null时，data部分的数据完全自己在代码中解析了，就不再使用该HTTP工具类帮忙解析了
                     if (httpCallback != null)
@@ -167,17 +167,17 @@ public class HttpUtil {
 //        if (UserUtil.getCookie() != null) {
 //            builder.addHeader("Cookie", UserUtil.getCookie());
 //        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("Android").append(Build.VERSION.RELEASE).append(" ");
-        sb.append(android.os.Build.BRAND).append(" ");
-        sb.append("CPU_ABI ").append(android.os.Build.CPU_ABI).append(" ");
-        sb.append("CPU_ABI2 ").append(android.os.Build.CPU_ABI2).append(" ");
-        sb.append("HARDWARE ").append(android.os.Build.HARDWARE).append(" ");
-        sb.append("MODEL ").append(android.os.Build.MODEL).append(" ");
-        sb.append("shihuo/").append(AppUtil.getVersionName()).append(" ");
-        sb.append("sc(").append(AppUtil.getDeviceId()).append(" ,");
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("Android").append(Build.VERSION.RELEASE).append(" ");
+//        sb.append(android.os.Build.BRAND).append(" ");
+//        sb.append("CPU_ABI ").append(android.os.Build.CPU_ABI).append(" ");
+//        sb.append("CPU_ABI2 ").append(android.os.Build.CPU_ABI2).append(" ");
+//        sb.append("HARDWARE ").append(android.os.Build.HARDWARE).append(" ");
+//        sb.append("MODEL ").append(android.os.Build.MODEL).append(" ");
+//        sb.append("shihuo/").append(AppUtil.getVersionName()).append(" ");
+//        sb.append("sc(").append(AppUtil.getDeviceId()).append(" ,");
 //        sb.append(AppUtil.getChannel()).append(")").append(" ");
-        builder.addHeader("User-Agent", sb.toString());
+//        builder.addHeader("User-Agent", sb.toString());
         if (requestBody != null)
             builder.post(requestBody);
         return builder.build();
