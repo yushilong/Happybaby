@@ -1,5 +1,6 @@
 package happybaby.pics.view.fragment;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -25,6 +26,7 @@ public class PicsFragment extends BaseFragment {
     HttpPageUtil httpPageUtil;
     int pn = 0;
     private String tag1, tag2;
+    SwipeRefreshLayout refreshLayout;
 
     @Override
     public int IGetContentViewResId() {
@@ -33,6 +35,7 @@ public class PicsFragment extends BaseFragment {
 
     @Override
     public void IFindViews(View view) {
+        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshLayout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -66,6 +69,16 @@ public class PicsFragment extends BaseFragment {
         tag1 = getArguments().getString("tag1");
         tag2 = getArguments().getString("tag2");
         httpPageUtil.setUrl(getApi());
+        refreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refresh();
+            }
+        }, 500);
+        refresh();
+    }
+
+    private void refresh() {
         httpPageUtil.async();
     }
 
@@ -75,5 +88,15 @@ public class PicsFragment extends BaseFragment {
         if (StringUtil.isEmpty(tag2))
             tag2 = "黑丝";
         return String.format(Constant.BAIDU_IMAGE, pn, tag1, tag2);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (refreshLayout != null) {
+            refreshLayout.setRefreshing(false);
+            refreshLayout.destroyDrawingCache();
+            refreshLayout.clearAnimation();
+        }
     }
 }

@@ -20,6 +20,7 @@ public class HttpPageUtil {
     private boolean isReachTheBottom;
     private String pageKey = "page";//default page
     private String pageSizeKey = "pagesize";//default pagesize
+    boolean isRequesting;
 
     public HttpPageUtil(String url, SortedMap<String, Object> sortedMap, RequestBody requestBody, Class<?> tClass, HttpCallback httpCallback) {
         this.url = url;
@@ -30,8 +31,10 @@ public class HttpPageUtil {
     }
 
     public void async() {
-        if (isReachTheBottom)
+        if (isReachTheBottom || isRequesting)
             return;
+        isRequesting = true;
+        page = page - 1;
         if (sortedMap == null)
             sortedMap = new TreeMap<>();
         sortedMap.put(pageKey, page + "");
@@ -72,5 +75,13 @@ public class HttpPageUtil {
 
     public void setPageSizeKey(String pageSizeKey) {
         this.pageSizeKey = pageSizeKey;
+    }
+
+    public boolean isRequesting() {
+        return isRequesting;
+    }
+
+    public void setIsRequesting(boolean isRequesting) {
+        this.isRequesting = isRequesting;
     }
 }

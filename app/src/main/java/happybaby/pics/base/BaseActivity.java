@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import happybaby.pics.R;
 import happybaby.pics.common.AppUtil;
 
@@ -130,4 +132,15 @@ public abstract class BaseActivity extends ActionBarActivity implements IActivit
         return progressDialog;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

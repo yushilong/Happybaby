@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:checked="true"
+            android:title="丝袜" />
+        <item android:title="美腿" />
+        <item android:title="清纯" />
+    </group>
+</menu>
