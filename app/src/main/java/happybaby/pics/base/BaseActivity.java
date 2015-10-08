@@ -3,17 +3,19 @@ package happybaby.pics.base;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.sso.UMSsoHandler;
 
 import happybaby.pics.R;
 import happybaby.pics.common.AppUtil;
+import happybaby.pics.common.share.ShareUtil;
 
 
 /**
@@ -48,6 +50,11 @@ public abstract class BaseActivity extends ActionBarActivity implements IActivit
                     onBackPressed();
                 }
             });
+            if (getMenuResId() != 0) {
+                getToolbar().inflateMenu(getMenuResId());
+                if (getOnMenuItemClickListener() != null)
+                    getToolbar().setOnMenuItemClickListener(getOnMenuItemClickListener());
+            }
         }
         if (title != null) {
             toolbarTitle = (TextView) title;
@@ -67,11 +74,12 @@ public abstract class BaseActivity extends ActionBarActivity implements IActivit
         IRequest();
     }
 
-    /**
-     * @param item
-     */
-    public void onItemClick(MenuItem item) {
+    public Toolbar.OnMenuItemClickListener getOnMenuItemClickListener() {
+        return null;
+    }
 
+    public int getMenuResId() {
+        return 0;
     }
 
     @Override
@@ -142,5 +150,15 @@ public abstract class BaseActivity extends ActionBarActivity implements IActivit
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 根据requestCode获取对应的SsoHandler
+        UMSsoHandler ssoHandler = ShareUtil.mController.getConfig().getSsoHandler(requestCode);
+        if (ssoHandler != null) {
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 }

@@ -58,11 +58,18 @@ public class PicsFragment extends BaseFragment {
             @Override
             public void success(Object object) {
                 super.success(object);
+                httpPageUtil.setIsRequesting(false);
                 ArrayList models = (ArrayList) object;
                 if (httpPageUtil.isRefreshState())
                     adapter.getModels().clear();
                 adapter.getModels().addAll(models);
                 adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(int status, String errorMsg) {
+                super.failure(status, errorMsg);
+                httpPageUtil.setIsRequesting(false);
             }
         });
         //

@@ -70,10 +70,51 @@
 -keep class sun.misc.Unsafe { *; }
 -keep class com.idea.fifaalarmclock.entity.***
 -keep class com.google.gson.stream.** { *; }
+
 #UMENG
 -keepclassmembers class * {
    public <init>(org.json.JSONObject);
 }
 -keep public class happybaby.pics.R$*{
-   public static final int *;
+    public static final int *;
 }
+#如果仍存在问题，可以再做如下操作：
+# 添加第三方jar包
+#-libraryjars libs/umeng-sdk.jar
+# 以下类过滤不混淆
+-keep public class * extends com.umeng.**
+# 以下包不进行过滤
+-keep class com.umeng.** { *; }
+-dontwarn com.facebook.**
+-keep enum com.facebook.**
+-keep public interface com.facebook.**
+-keep public class javax.**
+-keep class com.facebook.**
+
+# OkHttp
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.squareup.okhttp.** { *; }
+-keep interface com.squareup.okhttp.** { *; }
+-dontwarn com.squareup.okhttp.**
+
+#fresco
+# Keep our interfaces so they can be used by other ProGuard rules.
+# See http://sourceforge.net/p/proguard/bugs/466/
+-keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
+
+# Do not strip any method/class that is annotated with @DoNotStrip
+-keep @com.facebook.common.internal.DoNotStrip class *
+-keepclassmembers class * {
+    @com.facebook.common.internal.DoNotStrip *;
+}
+
+# Keep native methods
+-keepclassmembers class * {
+    native <methods>;
+}
+
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+#自定义的混淆
+-keep class happybaby.pics.models.**{*;}

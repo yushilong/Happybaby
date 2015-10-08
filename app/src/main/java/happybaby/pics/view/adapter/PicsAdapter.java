@@ -1,6 +1,7 @@
 package happybaby.pics.view.adapter;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,11 @@ import java.util.ArrayList;
 
 import happybaby.pics.R;
 import happybaby.pics.base.BaseAdapter;
+import happybaby.pics.common.AppUtil;
 import happybaby.pics.common.DeviceUtil;
 import happybaby.pics.common.ImageUtil;
 import happybaby.pics.models.PicsModel;
+import happybaby.pics.view.activity.ImageActivity;
 
 /**
  * Created by yushilong on 2015/9/22.
@@ -41,6 +44,10 @@ public class PicsAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     if (getAdapterPosition() == RecyclerView.NO_POSITION)
                         return;
+                    PicsModel model = (PicsModel) getModels().get(getAdapterPosition());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("model", model);
+                    AppUtil.jump(activity, ImageActivity.class, bundle);
                 }
             });
         }
@@ -56,7 +63,7 @@ public class PicsAdapter extends BaseAdapter {
         super.onBindViewHolder(holder, position);
         ViewHoler viewHoler = (ViewHoler) holder;
         PicsModel model = (PicsModel) getModels().get(position);
-        viewHoler.tv_title.setText(model.desc);
+        viewHoler.tv_title.setText(model.abs);
         viewHoler.iv_photo.setImageURI(ImageUtil.getUri(model.thumbnail_url));
     }
 }
