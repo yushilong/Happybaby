@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -71,33 +70,31 @@ public class MainActivity extends BaseActivity {
                 public void onClick(DialogPlus dialogPlus, View view) {
                     dialogPlus.dismiss();
                     switch (view.getId()) {
-                        case R.id.bt_commit:
+                        case R.id.bt_cancel:
                             AppManager.getAppManager().AppExit(IGetContext());
                             break;
                     }
                 }
-            }).create().show();
+            }).setCancelable(false).create().show();
         }
         replaceContent("可爱");
     }
+
+    long time = 0;
 
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(Gravity.LEFT))
             drawerLayout.closeDrawers();
-        else
-            super.onBackPressed();
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.KEYCODE_MENU) {
-            if (drawerLayout.isDrawerOpen(Gravity.LEFT))
-                drawerLayout.closeDrawers();
-            else drawerLayout.openDrawer(Gravity.LEFT);
-            return true;
+        else {
+            long t = System.currentTimeMillis();
+            if (t - time <= 2 * 1000)
+                finish();
+            else {
+                time = System.currentTimeMillis();
+                AppUtil.toast(IGetContext(), "再按一次退出程序");
+            }
         }
-        return super.onKeyUp(keyCode, event);
     }
 
     public void onClick(View view) {
