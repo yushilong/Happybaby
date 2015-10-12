@@ -77,4 +77,5 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.orhanobut:dialogplus:1.10@aar'
+    compile 'joda-time:joda-time:2.8.2'
 }

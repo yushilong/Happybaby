@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +13,8 @@ import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.ViewHolder;
 import com.umeng.update.UmengUpdateAgent;
+
+import org.joda.time.DateTime;
 
 import happybaby.pics.R;
 import happybaby.pics.base.AppManager;
@@ -34,6 +37,7 @@ public class MainActivity extends BaseActivity {
     public void IFindViews() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
+        addMenu();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -48,6 +52,29 @@ public class MainActivity extends BaseActivity {
         first = findViewById(R.id.first);
         boolean isFirst = PreferenceUtil.getBoolean(PreferenceUtil.PreferenceKeys.FIRST_OPEN_V1, true);
         first.setVisibility(isFirst ? View.VISIBLE : View.GONE);
+    }
+
+    private void addMenu() {
+        Menu menu = navigationView.getMenu();
+        DateTime dateTime = new DateTime(2015, 10, 13, 12, 0);
+        if (dateTime.isBeforeNow()) {
+            navigationView.setBackgroundResource(R.mipmap.navigation_menu_bg);
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "丝袜");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "美腿");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "小清新");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "甜素纯");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "清纯");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "唯美");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "萝莉");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "气质");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "古典美女");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "素颜");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "非主流");
+            menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "短发");
+            DateTime now = new DateTime();
+            if (now.getHourOfDay() >= 20 && now.getHourOfDay() <= 8)
+                menu.add(R.id.gp_menu, Menu.NONE, Menu.NONE, "人体");
+        }
     }
 
     private void replaceContent(String keyword) {

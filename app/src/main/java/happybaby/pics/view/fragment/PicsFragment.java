@@ -43,9 +43,11 @@ public class PicsFragment extends BaseFragment {
             @Override
             public void onBottom() {
                 super.onBottom();
-                pn = pn + 1;
-                httpPageUtil.setUrl(getApi());
-                httpPageUtil.async();
+                if (!httpPageUtil.isRequesting()) {
+                    pn = pn + 1;
+                    httpPageUtil.setUrl(getApi());
+                    httpPageUtil.async();
+                }
             }
         });
     }
@@ -82,7 +84,6 @@ public class PicsFragment extends BaseFragment {
                 refresh();
             }
         }, 500);
-        refresh();
     }
 
     private void refresh() {
